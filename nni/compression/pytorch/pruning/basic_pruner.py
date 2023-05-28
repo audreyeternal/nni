@@ -346,7 +346,7 @@ class NormPruner(BasicPruner):
     def _validate_config_before_canonical(self, model: Module, config_list: List[Dict]):
         schema_list = [deepcopy(NORMAL_SCHEMA), deepcopy(EXCLUDE_SCHEMA), deepcopy(INTERNAL_SCHEMA)]
         for sub_shcema in schema_list:
-            sub_shcema[SchemaOptional('op_types')] = ['Conv2d', 'Linear']
+            sub_shcema[SchemaOptional('op_types')] = ['Conv2d', 'Conv3d', 'Linear']
         schema = CompressorSchema(schema_list, model, _logger)
 
         schema.validate(config_list)
@@ -516,7 +516,7 @@ class FPGMPruner(BasicPruner):
     def _validate_config_before_canonical(self, model: Module, config_list: List[Dict]):
         schema_list = [deepcopy(NORMAL_SCHEMA), deepcopy(EXCLUDE_SCHEMA), deepcopy(INTERNAL_SCHEMA)]
         for sub_shcema in schema_list:
-            sub_shcema[SchemaOptional('op_types')] = ['Conv2d', 'Linear']
+            sub_shcema[SchemaOptional('op_types')] = ['Conv2d', 'Conv3d', 'Linear']
         schema = CompressorSchema(schema_list, model, _logger)
 
         schema.validate(config_list)
@@ -727,7 +727,7 @@ class ActivationPruner(EvaluatorBasedPruner):
     def _validate_config_before_canonical(self, model: Module, config_list: List[Dict]):
         schema_list = [deepcopy(NORMAL_SCHEMA), deepcopy(EXCLUDE_SCHEMA), deepcopy(INTERNAL_SCHEMA)]
         for sub_shcema in schema_list:
-            sub_shcema[SchemaOptional('op_types')] = ['Conv2d', 'Linear']
+            sub_shcema[SchemaOptional('op_types')] = ['Conv2d', 'Conv3d', 'Linear']
         schema = CompressorSchema(schema_list, model, _logger)
 
         schema.validate(config_list)
@@ -1006,7 +1006,7 @@ class TaylorFOWeightPruner(EvaluatorBasedPruner):
         else:
             schema_list.append(deepcopy(NORMAL_SCHEMA))
         for sub_shcema in schema_list:
-            sub_shcema[SchemaOptional('op_types')] = ['Conv2d', 'Linear']
+            sub_shcema[SchemaOptional('op_types')] = ['Conv2d', 'Conv3d', 'Linear']
         schema = CompressorSchema(schema_list, model, _logger)
 
         try:
